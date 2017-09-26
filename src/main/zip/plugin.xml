@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-- Licensed Materials - Property of IBM Corp.
-- IBM UrbanCode Build
-- IBM UrbanCode Deploy
-- IBM UrbanCode Release
-- IBM AnthillPro
-- (c) Copyright IBM Corporation 2002, 2013. All Rights Reserved.
--
-- U.S. Government Users Restricted Rights - Use, duplication or disclosure restricted by
-- GSA ADP Schedule Contract with IBM Corp.
+    © Copyright IBM Corporation 2016, 2017.
+    This is licensed under the following license.
+    The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+    U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="18"/>
+    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="19"/>
     	<description>
 			This plugin provides steps for the automation of Venafi certificate management operations.
 	 	</description>
@@ -48,7 +43,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="authenticationTest.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -92,7 +87,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="requestCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -155,7 +150,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="requestCertificateWait.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -209,7 +204,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="retrieveCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -247,7 +242,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="getCertificateStatus.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -288,7 +283,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="validateRemainingDaysCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -341,7 +336,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="revokeCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -379,7 +374,7 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver.jar:lib/http-builder-0.7.1.jar"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
       <arg file="renewCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
