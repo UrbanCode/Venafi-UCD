@@ -5,6 +5,9 @@ Note: This is not the plugin distributable! This is the source code. To find the
 ### License
 This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
 
+### Documentation
+See the associated pdf file for detailed information on how to use the plugin steps and how to assemble the steps into useful UrbanCode processes.
+
 ### Compatibility
 	The IBM UrbanCode Deploy automation plugin uses Venafi's REST API.
 	This plug-in requires version 6.1.1 or later of IBM UrbanCode Deploy.
