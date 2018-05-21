@@ -13,9 +13,12 @@
 <plugin-upgrade
         xmlns="http://www.urbancode.com/UpgradeXMLSchema_v1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  
+
     <migrate to-version="2">
         <migrate-command name="Add Work Item Comments"/>
         <migrate-command name="Change Work Item Status"/>
+    </migrate>
+    <migrate to-version="19">
+        <migrate-command name="update default values"/>
     </migrate>
 </plugin-upgrade>
