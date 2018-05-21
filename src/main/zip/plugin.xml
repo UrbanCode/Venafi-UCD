@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    © Copyright IBM Corporation 2016, 2017.
-    This is licensed under the following license.
-    The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
-    U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+- Licensed Materials - Property of IBM Corp.
+- IBM UrbanCode Build
+- IBM UrbanCode Deploy
+- IBM UrbanCode Release
+- IBM AnthillPro
+- (c) Copyright IBM Corporation 2002, 2013. All Rights Reserved.
+-
+- U.S. Government Users Restricted Rights - Use, duplication or disclosure restricted by
+- GSA ADP Schedule Contract with IBM Corp.
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="19"/>
+    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="26"/>
     	<description>
 			This plugin provides steps for the automation of Venafi certificate management operations.
 	 	</description>
@@ -23,14 +28,14 @@ Authentication Test
   <step-type name="Authentication test">
     <description>Test the communication with the Venafi server</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" label="tpp Username" default-value="${p:resource/VenafiTPPUser}" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" label="tpp User password" description="The password for the tpp user" default-value="${p:resource/VenafiTPPUserPassword}"/>
+        <property-ui type="secureBox" label="tpp User password" default-value="${p:resource/VenafiTPPPassword}" description="The password for the tpp user"/>
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -43,8 +48,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="authenticationTest.groovy"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/authenticationTest.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -52,29 +57,23 @@ Authentication Test
 
   <!--
   ==================================================================================
-  Request Certificate
+  Get Venafi Policy
   -->
 
-  <step-type name="Request Certificate">
-    <description>Request a certificate from TPP</description>
+  <step-type name="Get Venafi Policy">
+    <description>Get a specific Venafi Trust Protection Platform policy</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
-      <property name="policyDn" required="true">
-        <property-ui type="textBox" label="TPP policy DN" description="The path for certificate within TPP"/>
-      </property>
-      <property name="caDn" required="true">
-        <property-ui type="textBox" label="CA DN" description="The DN for the CA within TPP"/>
-      </property>
-      <property name="x509Subject" required="true">
-        <property-ui type="textBox" label="X.509 subject" description="The subject for the certificate "/>
+      <property name="policyDN" required="true">
+        <property-ui type="textBox" label="TPP policy DN" default-value="${p:resource/tppPolicyDN}" description="The path for certificate within TPP"/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" label="tpp Username" hidden="true" description="The username for the tpp connection" />
+        <property-ui type="textBox" label="tpp Username" default-value="${p:resource/VenafiTPPUser}" hidden="true" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" label="tpp User password" hidden="true" description="The password for the tpp user" />
+        <property-ui type="secureBox" label="tpp User password" default-value="${p:resource/VenafiTPPPassword}" hidden="true" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -87,8 +86,178 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="requestCertificate.groovy"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/getVenafiPolicy.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+
+  <!--
+    ==================================================================================
+    Request Certificate
+    -->
+
+    <step-type name="Request Certificate">
+      <description>Request a certificate from TPP</description>
+      <properties>
+        <property name="tppURL" required="true">
+          <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+        </property>
+        <property name="policyDN" required="true">
+          <property-ui type="textBox" label="TPP policy DN" default-value="${p:resource/tppPolicyDN}" description="The path for certificate within TPP"/>
+        </property>
+        <property name="caDN" required="true">
+          <property-ui type="textBox" label="CA DN" default-value="${p:resource/tppCertificateAuthority}" description="The DN for the CA within TPP"/>
+        </property>
+        <property name="certificateName" required="true">
+          <property-ui type="textBox" label="Certificate name" default-value="${p:resource/certificateName}" description="The DN for the certificate"/>
+        </property>
+        <property name="subjectAltNames" required="false">
+          <property-ui type="textAreaBox" label="Subject alt names" description="Subject alternative names in the format : Type 1 : Value 1; Type 2 : Value 2;  See documentation for information on types."/>
+        </property>
+        <property name="tppUser" required="true">
+          <property-ui type="textBox" label="tpp Username" default-value="${p:resource/VenafiTPPUser}" hidden="true" description="The username for the tpp connection" />
+        </property>
+        <property name="tppPassword" required="true">
+          <property-ui type="secureBox" label="tpp User password" default-value="${p:resource/VenafiTPPPassword}" hidden="true" description="The password for the tpp user" />
+        </property>
+      </properties>
+      <post-processing><![CDATA[
+          if (properties.get("exitCode") != 0) {
+              properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+          }
+          else {
+              properties.put("Status", "Success");
+          }
+       ]]></post-processing>
+      <command program="${GROOVY_HOME}/bin/groovy">
+        <arg value="-cp"/>
+        <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+        <arg file="classes/requestCertificate.groovy"/>
+        <arg file="${PLUGIN_INPUT_PROPS}"/>
+        <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+      </command>
+    </step-type>
+
+    <!--
+    ==================================================================================
+    Request Certificate Wait
+    -->
+
+    <step-type name="Request Certificate Wait">
+      <description>Request a certificate from TPP and poll for to get the status for issuance</description>
+      <properties>
+        <property name="tppURL" required="true">
+          <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+        </property>
+        <property name="policyDN" required="true">
+          <property-ui type="textBox" label="TPP policy DN" default-value="${p:resource/tppPolicyDN}" description="The path for certificate within TPP"/>
+        </property>
+        <property name="caDN" required="true">
+          <property-ui type="textBox" label="CA DN" default-value="${p:resource/tppCertificateAuthority}" description="The DN for the CA within TPP"/>
+        </property>
+        <property name="certificateName" required="true">
+          <property-ui type="textBox" label="Certificate name" default-value="${p:resource/certificateName}" description="The name for the certificate"/>
+        </property>
+        <property name="format" required="true">
+          <property-ui type="selectBox" label="Format" default-value = "Base64" description="Format for the certificate"/>
+          <value label="Base 64">Base64</value>
+          <value label="PKCS #7">PKCS #7</value>
+          <value label="PKCS #12">PKCS #12</value>
+          <value label="JKS">JKS</value>
+          <value label="DER">DER</value>
+        </property>
+        <property name="includeChain">
+          <property-ui type="checkBox" label="Include chain" description="Include the certificate chain. Not applicable to DER."/>
+        </property>
+        <property name="includePrivateKey">
+          <property-ui type="checkBox" label="Include private key" description="Include the private key. Only applies to PKCS #12 or JKS."/>
+        </property>
+        <property name="friendlyName" required="false">
+          <property-ui type="textBox" label="Friendly name" description="A frieldly name to associate with the certificate."/>
+        </property>
+        <property name="keystorePassword" required="false">
+          <property-ui type="secureBox" label="Key store PW" description="Password to protect the JKS keystore."/>
+        </property>
+        <property name="privateKeyProtectionPassword" required="false">
+          <property-ui type="secureBox" label="Private key PW" description="The password to protect the private key. Only applies to PKCS #12 or JKS format when the private key has been requested."/>
+        </property>
+        <property name="subjectAltNames" required="false">
+          <property-ui type="textAreaBox" label="Subject alt names" description="Subject alternative names in the format : Type 1 : Value 1; Type 2 : Value 2;  See documentation for information on types."/>
+        </property>
+        <property name="filename" required="true">
+          <property-ui type="textBox" label="Filename" description="The name of the file to hold the certificate. Extension will be added and the filename will be provided as an output property."/>
+        </property>
+        <property name="timeout" required="true">
+          <property-ui type="textBox" label="Poll timout" default-value="120" description="The time to wait for the certificate to be approved and ready within TPP"/>
+        </property>
+        <property name="interval" required="true">
+          <property-ui type="textBox" label="Poll interval" default-value="20" description="The interval between checking the certificate status within TPP"/>
+        </property>
+        <property name="tppUser" required="true">
+          <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
+        </property>
+        <property name="tppPassword" required="true">
+          <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
+        </property>
+      </properties>
+      <post-processing><![CDATA[
+          if (properties.get("exitCode") != 0) {
+              properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+          }
+          else {
+              properties.put("Status", "Success");
+          }
+       ]]></post-processing>
+      <command program="${GROOVY_HOME}/bin/groovy">
+        <arg value="-cp"/>
+        <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+        <arg file="classes/requestCertificateWait.groovy"/>
+        <arg file="${PLUGIN_INPUT_PROPS}"/>
+        <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+      </command>
+    </step-type>
+
+  <!--
+  ==================================================================================
+  Request Certificate CSR
+  -->
+
+  <step-type name="Generate Certificate CSR">
+    <description>Generate a certificate CSR to be sent to Venafi using a subsequent step</description>
+    <properties>
+      <property name="policyDetails" required="true">
+        <property-ui type="textBox" label="Policy details" description="JSON object containing the policy details taken from the 'policy' output property of the step called 'Get Venafi Policy'"/>
+      </property>
+      <property name="certificateName" required="true">
+        <property-ui type="textBox" label="Certificate Name" default-value="${p:resource/certificateName}" description="The DN for the certificate"/>
+      </property>
+      <property name="emailAddress" required="true">
+        <property-ui type="textBox" label="Email" description="The email address to associated with the certificate"/>
+      </property>
+      <property name="websiteURL" required="true">
+        <property-ui type="textBox" label="Web URL" description="The website URL to assiciate with the certificate"/>
+      </property>
+      <property name="privateKeyFileName" required="true">
+        <property-ui type="textBox" label="Private key file" default-value="venafi_csr_key.private" description="The filename to hold the private key" />
+      </property>
+      <property name="publicKeyFileName" required="true">
+        <property-ui type="textBox" label="Public key file" default-value="venafi_csr_key.public" description="The filename to hold the public key" />
+      </property>
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/generateCertificateCSR.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -96,48 +265,38 @@ Authentication Test
 
   <!--
   ==================================================================================
-  Request Certificate Wait
+  Submit CSR to Venafi
   -->
 
-  <step-type name="Request Certificate Wait">
-    <description>Request a certificate from TPP and poll for to get the status for issuance</description>
+  <step-type name="Submit CSR to Venafi">
+    <description>Submit a CSR to the Venafi server</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
-      <property name="policyDn" required="true">
-        <property-ui type="textBox" label="TPP policy DN" description="The path for certificate within TPP"/>
+      <property name="policyDN" required="true">
+        <property-ui type="textBox" label="TPP policy DN" default-value="${p:resource/tppPolicyDN}" description="The path for certificate within TPP"/>
       </property>
-      <property name="caDn" required="true">
-        <property-ui type="textBox" label="CA DN" description="The DN for the CA within TPP"/>
+      <property name="caDN" required="true">
+        <property-ui type="textBox" label="Cert. Authority" description="The certificate authority used to generate the certificate"/>
       </property>
-      <property name="x509Subject" required="true">
-        <property-ui type="textBox" label="X.509 subject" description="The subject for the certificate "/>
+      <property name="certificateName" required="true">
+        <property-ui type="textBox" label="Cert. Name" default-value="${p:resource/certificateName}" description="The name for the certificate"/>
       </property>
-      <property name="waitFor" required="true">
-        <property-ui type="textBox" label="Poll time" default-value="15" description="The time between the polls in seconds"/>
+      <property name="csrText" required="false">
+        <property-ui type="textBox" label="CSR Text" description="The generated CSR in text format. Used to pass the output of the Generate CSR step into the submit step : ${p:Generate Certificate CSR/csr}."/>
       </property>
-      <property name="tryTimes" required="true">
-        <property-ui type="textBox" label="Poll repeats" default-value="10" description="The maximum number of times to try (try * seconds = wait time)"/>
+      <property name="csrFile" required="false">
+        <property-ui type="textBox" label="CSR File" description="The name of a file that holds the CSR data. Used when generating the CSR from a keystore."/>
       </property>
-      <property name="Format" required="true">
-        <property-ui type="selectBox" label="Format" default-value = "PKCS #12" description="Format for the certificate"/>
-        <value label="PKCS #12">PKCS #12</value>
-      </property>
-      <property name="IncludeChain">
-        <property-ui type="checkBox" label="Include chain" description="Include the certificate chain if selected"/>
-      </property>
-      <property name="IncludePrivateKey">
-        <property-ui type="checkBox" label="Include private key" description="Include the key private key"/>
-      </property>
-      <property name="p12Password" required="true">
-        <property-ui type="secureBox" label="Password" description="The password for the bundle"/>
+      <property name="subjectAltNames" required="false">
+        <property-ui type="textAreaBox" label="Subject Alt Names" description="Subject alternative names in the format : Type 1 : Value 1; Type 2 : Value 2;  See documentation for information on types."/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" label="tpp Username" default-value="${p:resource/VenafiTPPUser}" hidden="true" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -150,8 +309,49 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="requestCertificateWait.groovy"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/submitCSRToVenafiServer.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+
+  <!--
+  ==================================================================================
+  Submit Custom Fields to Venafi
+  -->
+
+  <step-type name="Submit Custom Fields to Venafi">
+    <description>Submit the custom fields required for a certificate to the Venafi server</description>
+    <properties>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      </property>
+      <property name="certificateDN" required="true">
+        <property-ui type="textBox" label="Cert. DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate"/>
+      </property>
+      <property name="customFields" required="true">
+        <property-ui type="textAreaBox" label="Custom Fields" description="Custom fields in the format : Field Name 1 : Field value 1; Field name 2 : Field value 2;"/>
+      </property>
+      <property name="tppUser" required="true">
+        <property-ui type="textBox" label="tpp Username" default-value="${p:resource/VenafiTPPUser}" hidden="true" description="The username for the tpp connection" />
+      </property>
+      <property name="tppPassword" required="true">
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
+      </property>
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/submitCustomFieldsToVenafiServer.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -165,33 +365,49 @@ Authentication Test
   <step-type name="Retrieve Certificate">
     <description>Retrieve a certificate from TPP. Certificate already exists.</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="certificateDN" required="true">
-        <property-ui type="textBox" label="Certificate DN" description="The DN for the certificate within TPP"/>
+        <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
-      <property name="Filename" required="true">
-        <property-ui type="textBox" label="Filename" description="The file to store the retrieved certificate"/>
-      </property>
-      <property name="Format" required="true">
-        <property-ui type="selectBox" label="Format" default-value="PKCS #12" description="Format for the certificate"/>
+      <property name="format" required="true">
+        <property-ui type="selectBox" label="Format" default-value = "Base64" description="Format for the certificate"/>
+        <value label="Base 64">Base64</value>
+        <value label="PKCS #7">PKCS #7</value>
         <value label="PKCS #12">PKCS #12</value>
+        <value label="JKS">JKS</value>
+        <value label="DER">DER</value>
       </property>
-      <property name="IncludeChain">
-        <property-ui type="checkBox" label="Include chain" description="Include the certificate chain if selected"/>
+      <property name="includeChain">
+        <property-ui type="checkBox" label="Include chain" description="Include the certificate chain. Not applicable to DER."/>
       </property>
-      <property name="IncludePrivateKey">
-        <property-ui type="checkBox" label="Include private key" description="Include the key private key"/>
+      <property name="includePrivateKey">
+        <property-ui type="checkBox" label="Include private key" description="Include the private key. Only applies to PKCS #12 or JKS."/>
       </property>
-      <property name="p12Password" required="true">
-        <property-ui type="secureBox" label="Password" description="The password for the bundle"/>
+      <property name="friendlyName" required="false">
+        <property-ui type="textBox" label="Friendly name" description="A name to associate with the certicate. Optional for Base64 certificates and MANDATORY for JKS."/>
+      </property>
+      <property name="keystorePassword" required="false">
+        <property-ui type="secureBox" label="Keystore password" description="Password for the JKS keystore. MANDATORY whe JKS format is selected."/>
+      </property>
+      <property name="privateKeyProtectionPassword" required="false">
+        <property-ui type="secureBox" label="Private key PW" description="The password to protect the private key. Only applies to PKCS #12 or JKS format when the private key has been requested."/>
+      </property>
+      <property name="filename" required="true">
+        <property-ui type="textBox" label="Filename" description="The name of the file to hold the certificate. Extension will be added and the filename will be provided as an output property."/>
+      </property>
+      <property name="timeout" required="true">
+        <property-ui type="textBox" label="Poll timout" default-value="120" description="The time to wait for the certificate to be approved and ready within TPP"/>
+      </property>
+      <property name="interval" required="true">
+        <property-ui type="textBox" label="Poll interval" default-value="20" description="The interval between checking the certificate status within TPP"/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -204,8 +420,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="retrieveCertificate.groovy"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/retrieveCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -219,17 +435,17 @@ Authentication Test
   <step-type name="Get Certificate Status">
     <description>Get information about a certificate from Venafi.</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="certificateDN" required="true">
-        <property-ui type="textBox" label="Certificate DN" description="The DN for the certificate within TPP"/>
+        <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -242,8 +458,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="getCertificateStatus.groovy"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/getCertificateStatus.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -257,20 +473,20 @@ Authentication Test
   <step-type name="Validate Remaining Days">
     <description>Validate the remaining days of a certificate before expiry. If the certificate is valid for less than the indicated number of days then the step will fail.</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="certificateDN" required="true">
-        <property-ui type="textBox" label="Certificate DN" description="The DN for the certificate within TPP"/>
+        <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
-      <property name="FailIfLessThan" required="true">
+      <property name="failIfLessThan" required="true">
         <property-ui type="textBox" label="Days required" description="The number of days for which the certificate should be valid to pass."/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -283,8 +499,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="validateRemainingDaysCertificate.groovy"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/validateRemainingDaysCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -298,11 +514,11 @@ Authentication Test
   <step-type name="Revoke Certificate">
     <description>Revoke a certificate.</description>
     <properties>
-      <property name="tppurl" required="true">
+      <property name="tppURL" required="true">
         <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="certificateDN" required="true">
-        <property-ui type="textBox" label="Certificate DN" description="The DN for the certificate within TPP"/>
+        <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
       <property name="reasonCode" required="true">
         <property-ui type="selectBox" label="Reason" default-value="0 - None" description="The reason for the revoke request."/>
@@ -320,10 +536,10 @@ Authentication Test
         <property-ui type="checkBox" label="disabled" default-value="false" description="Disable the certificate object, in addition to revoking the certificate."/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -336,8 +552,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="revokeCertificate.groovy"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/revokeCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
@@ -351,17 +567,17 @@ Authentication Test
   <step-type name="Renew Certificate">
     <description>Renew a certificate.</description>
     <properties>
-      <property name="tppurl" required="true">
-        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPP-URL}" description="The URL for the Venafi TPP server in the format https://server-name"/>
+      <property name="tppURL" required="true">
+        <property-ui type="textBox" label="TPP API URL" default-value="${p:resource/VenafiTPPServer}" description="The URL for the Venafi TPP server in the format https://server-name"/>
       </property>
       <property name="certificateDN" required="true">
-        <property-ui type="textBox" label="Certificate DN" description="The DN for the certificate within TPP"/>
+        <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
       <property name="tppUser" required="true">
-        <property-ui type="textBox" hidden="true" label="tpp Username" description="The username for the tpp connection" />
+        <property-ui type="textBox" hidden="true" default-value="${p:resource/VenafiTPPUser}" label="tpp Username" description="The username for the tpp connection" />
       </property>
       <property name="tppPassword" required="true">
-        <property-ui type="secureBox" hidden="true" label="tpp User password" description="The password for the tpp user" />
+        <property-ui type="secureBox" hidden="true" default-value="${p:resource/VenafiTPPPassword}" label="tpp User password" description="The password for the tpp user" />
       </property>
     </properties>
     <post-processing><![CDATA[
@@ -374,8 +590,8 @@ Authentication Test
      ]]></post-processing>
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar"/>
-      <arg file="renewCertificate.groovy"/>
+      <arg path=".:classes:lib/HttpComponents-Util.jar:lib/jettison-1.1.jar:lib/commons-collections-3.2.1.jar:lib/commons-beanutils-1.8.0.jar:lib/ezmorph-1.0.6.jar:lib/json-lib-2.3-jdk15.jar:lib/uDeployRestClient.jar:lib/xml-resolver-1.2.jar:lib/http-builder-0.7.1.jar:lib/bcprov-jdk15on-1.59.jar:lib/bcpkix-jdk15on-1.59.jar"/>
+      <arg file="classes/renewCertificate.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>

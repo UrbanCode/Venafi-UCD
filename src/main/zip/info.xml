@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-    © Copyright IBM Corporation 2016, 2017.
-    This is licensed under the following license.
-    The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
-    U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+- Licensed Materials - Property of IBM Corp.
+- IBM UrbanCode Build
+- IBM UrbanCode Deploy
+- IBM UrbanCode Release
+- IBM AnthillPro
+- (c) Copyright IBM Corporation 2002, 2013. All Rights Reserved.
+-
+- U.S. Government Users Restricted Rights - Use, duplication or disclosure restricted by
+- GSA ADP Schedule Contract with IBM Corp.
 --><pluginInfo>
   <!--
 
@@ -109,7 +114,7 @@
   </meta-html>
 
   <!-- Do not change the release-version, the build process injects it. -->
-  <release-version>@RELEASE_VERSION@</release-version>
+  <release-version>26.0.1</release-version>
 
 
   <release-notes>
@@ -139,10 +144,6 @@
 
       <release-note plugin-version="1">
 		Initial release.
-      </release-note>
-
-      <release-note plugin-version="19">
-		Initial GitHub release for the IBM UrbanCode Development Community.
       </release-note>
   </release-notes>
 </pluginInfo>
