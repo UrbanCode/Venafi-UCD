@@ -16,11 +16,12 @@ See the associated pdf file for detailed information on how to use the plugin st
 	The packaged zip is located in the releases folder. No special steps are required for installation. See Installing plug-ins in UrbanCode Deploy. Download this zip file if you wish to skip the manual build step. Otherwise, download the entire Venafi-UCD project and run the `gradle` command in the top level folder. This should compile the code and create 	a new distributable zip within the `build/distributions` folder. Use this command if you wish to make your own changes to the plugin.
 
 ### History
-    Version 20
+    Version 19
         - Community GitHub Release
-	
+
+    Version 26
 	New steps added for :
-	
+
 	Generate certificate CSR – Create a certificate signing request that may then be submitted to Venafi.
 	Get Venafi Policy – Retreive the details of the Venafi policy associated with a specific policy folder.
 	Submit CSR to Venafi – Submit the previously created CSR to Venafi for processing.
