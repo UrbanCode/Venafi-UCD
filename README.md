@@ -19,7 +19,7 @@ See the associated pdf file for detailed information on how to use the plugin st
     Version 19
         - Community GitHub Release
 
-    Version 26
+    Version 20
 	New steps added for :
 
 	Generate certificate CSR – Create a certificate signing request that may then be submitted to Venafi.

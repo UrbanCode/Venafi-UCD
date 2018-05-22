@@ -7,7 +7,7 @@
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="26"/>
+    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="20"/>
     	<description>
 			This plugin provides steps for the automation of Venafi certificate management operations.
 	 	</description>
