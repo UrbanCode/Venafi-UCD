@@ -7,7 +7,13 @@
 -->
 <pluginInfo>
   <!--
+<<<<<<< HEAD
   **author name IS required**
+=======
+
+  **author name IS required**
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   The Author Section is used to give credit to the author of the plugin.
   Name is the only required element/attribute, but feel free to also include your email,
   website  or bio to allow users of your plugin to praise your work, ask questions
@@ -22,10 +28,21 @@
   </author>
 
   <!--
+<<<<<<< HEAD
   **intergration type IS Required**
   The integration type section identifies where the plugin fits into the process
   excepted types are SCM, Build, Artifact, Automation, Deploy
   For example:
+=======
+
+  **intergration type IS Required**
+
+  The integration type section identifies where the plugin fits into the process
+  excepted types are SCM, Build, Artifact, Automation, Deploy
+
+  For example:
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   The plugin pulls Artifacts from an artifact repository during deployment
   the Type would be "Artifact"
   or
@@ -38,6 +55,10 @@
 
   <!--
   **source is NOT required**
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   The source section identifies the location of the plugin source code
   For example
   https://github.com/...
@@ -47,6 +68,10 @@
   -->
   <!--
   **license type is NOT required**
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   If your plugin uses any licensed software please acknowledge it by
   listing the license type below
   -->
@@ -57,8 +82,15 @@
   -->
   <!--
   **tool-description IS required**
+<<<<<<< HEAD
   The tool-description section is used to summarize the software
   the plugin was created to integrate with.
+=======
+
+  The tool-description section is used to summarize the software
+  the plugin was created to integrate with.
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   For example:
   Apache Ant is a software tool to automate software processes during the build or
   deployment of an application. Ant uses an propitiatory XML file to define build
@@ -70,10 +102,20 @@
 
   <!--
   **related-info is NOT required**
+<<<<<<< HEAD
   The releated-info section is used to define links which may be useful to users of the plugin
   but don't fall into the release-notes or tool-description section.
   For example: releated-info can be links to pdf documentation, help videos related to plugin setup or the product's
   website.
+=======
+
+  The releated-info section is used to define links which may be useful to users of the plugin
+  but don't fall into the release-notes or tool-description section.
+
+  For example: releated-info can be links to pdf documentation, help videos related to plugin setup or the product's
+  website.
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   excepted values for type include: PDF, WEBSITE, VIDEO
   -->
   <!--
@@ -83,10 +125,18 @@
   -->
   <!--
   **meta-html in NOT required**
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   The meta-html section is used define the meta description and the meta keywords of the plugin page.The meta
   description tag allows you to influence the description of your page in the web crawlers that support the
   tag The meta keywords tag allows   you to provide additional text for crawler-based search engines to index
   along with your body copy.
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
   If multiple keywords are used they must be comma(,) delimited
   -->
 
@@ -102,17 +152,37 @@
   <release-notes>
     <!--
       **release-note IS required**
+<<<<<<< HEAD
       The plugin-version name must match the plugin version found in the plugin.xml file
       The release-note should document the changes, improvements, or bug fixes introduced
       with the new plugin version
       The release-note may contain text or reference a file in the plugin zip package
+=======
+
+      The plugin-version name must match the plugin version found in the plugin.xml file
+
+      The release-note should document the changes, improvements, or bug fixes introduced
+      with the new plugin version
+
+      The release-note may contain text or reference a file in the plugin zip package
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
       For example your release note could be:
       Support for was added for version 10.0 for software X
       or
       releaseNotes/release1.html (where release1.html contains html formatted version information)
+<<<<<<< HEAD
       To add a new release note add this with a description in it of the changes:
       <release-note plugin-version="1">....</release-note>
       Our automated release process will replace 'LATEST' with the released version.
+=======
+
+      To add a new release note add this with a description in it of the changes:
+      <release-note plugin-version="1">....</release-note>
+
+      Our automated release process will replace 'LATEST' with the released version.
+
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
       If this already exists in the file, then the described changes have not been released yet and
       you should just append to the existing 'LATEST' tag.
       -->

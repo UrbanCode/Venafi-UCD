@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+<<<<<<< HEAD
 - Licensed Materials - Property of IBM Corp.
 - IBM UrbanCode Build
 - IBM UrbanCode Deploy
@@ -9,6 +10,12 @@
 -
 - U.S. Government Users Restricted Rights - Use, duplication or disclosure restricted by
 - GSA ADP Schedule Contract with IBM Corp.
+=======
+- (c) Copyright IBM Corporation 2017.
+- This is licensed under the following license.
+- The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+- U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
 -->
 <plugin-upgrade
         xmlns="http://www.urbancode.com/UpgradeXMLSchema_v1"
@@ -21,4 +28,9 @@
     <migrate to-version="19">
         <migrate-command name="update default values"/>
     </migrate>
+<<<<<<< HEAD
+=======
+    <migrate to-version="20">
+    </migrate>
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
 </plugin-upgrade>

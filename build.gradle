@@ -54,7 +54,10 @@ configurations {
 repositories {
     mavenCentral()
     maven { url "https://public.dhe.ibm.com/software/products/UrbanCode/maven2/" }
+<<<<<<< HEAD
 		maven { url "https://mvnrepository.com/artifact" }
+=======
+>>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
 }
 
 dependencies {
