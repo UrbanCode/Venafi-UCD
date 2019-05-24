@@ -67,8 +67,9 @@ public class VenafiRESTAPI {
               body: [PolicyDN: policyDn, PKCS10: CSR, ObjectName: objectName, CADN: CertAuthorityDN, SubjectAltNames: subjectAltNames],
               requestContentType: JSON)
 
+      // println(request.data)
       return request.data
-      println(request)
+
 
     }
 

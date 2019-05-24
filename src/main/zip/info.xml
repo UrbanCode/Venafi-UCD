@@ -111,7 +111,7 @@
   </meta-html>
 
   <!-- Do not change the release-version, the build process injects it. -->
-  <release-version>@RELEASE_VERSION@</release-version>
+  <release-version>28.0.8</release-version>
 
 
   <release-notes>
@@ -143,15 +143,15 @@
 		Initial release.
       </release-note>
       <release-note plugin-version="19">
-		Community GitHub release.
+    Community GitHub release.
       </release-note>
       <release-note plugin-version="20">
-		New steps added for :
+    New steps added for :
 
-		Generate certificate CSR – Create a certificate signing request that may then be submitted to Venafi.
-		Get Venafi Policy – Retreive the details of the Venafi policy associated with a specific policy folder.
-		Submit CSR to Venafi – Submit the previously created CSR to Venafi for processing.
-		Submit custom fields to Venafi – Suppliment a previously submitted certificate request with custom field values.
-      </release-note>
+    Generate certificate CSR – Create a certificate signing request that may then be submitted to Venafi.
+    Get Venafi Policy – Retreive the details of the Venafi policy associated with a specific policy folder.
+    Submit CSR to Venafi – Submit the previously created CSR to Venafi for processing.
+    Submit custom fields to Venafi – Suppliment a previously submitted certificate request with custom field values.
+    </release-note>
   </release-notes>
 </pluginInfo>

@@ -7,7 +7,7 @@
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="20"/>
+    <identifier id="com.urbancode.air.plugin.Venafi" name="Venafi" version="28"/>
     	<description>
 			This plugin provides steps for the automation of Venafi certificate management operations.
 	 	</description>
@@ -15,10 +15,10 @@
     <server:required-server-version>6.0.1.0</server:required-server-version>
   </header>
 
-<!--
-==================================================================================
-Authentication Test
--->
+  <!--
+  ==================================================================================
+  Authentication Test
+  -->
 
   <step-type name="Authentication test">
     <description>Test the communication with the Venafi server</description>
@@ -591,4 +591,4 @@ Authentication Test
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
   </step-type>
- </plugin>
+</plugin>

@@ -17,5 +17,6 @@
         <migrate-command name="update default values"/>
     </migrate>
     <migrate to-version="20">
+      <migrate-command name="update default values"/>
     </migrate>
 </plugin-upgrade>
