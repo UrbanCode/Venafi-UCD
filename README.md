@@ -26,6 +26,10 @@ See the associated pdf file for detailed information on how to use the plugin st
 	Get Venafi Policy – Retreive the details of the Venafi policy associated with a specific policy folder.
 	Submit CSR to Venafi – Submit the previously created CSR to Venafi for processing.
 	Submit custom fields to Venafi – Suppliment a previously submitted certificate request with custom field values.
+    Version 28
+        - Fixed error where different versions of Venafi return incompatible certificate data.
+    Version 29
+        - Fixed plugin upgrade process from older versions.
 
 ### How to build the plugin from command line:
 
