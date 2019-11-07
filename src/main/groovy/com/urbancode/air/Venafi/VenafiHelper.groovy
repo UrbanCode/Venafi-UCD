@@ -250,7 +250,7 @@ public class VenafiHelper {
 
   }
 
-  private getCustomFields(String tppURL, String apikey) {
+  def getCustomFields(String tppURL, String apikey) {
 
     try {
       HashMap customFieldsMap = tpp.retrieveCustomFieldData(tppURL, apikey)
@@ -1186,12 +1186,15 @@ public class VenafiHelper {
 
   private String writeBase64EncodedCertToFile(String filename, String certificateData, String extension) {
 
+    def searchTermForCertificateData=""
+
     if (certificateData.contains("[")) {
-      certificateData = certificateData.substring(1, certificateData.length())
+      searchTermForCertificateData = "CertificateData:"
+    } else {
+      searchTermForCertificateData = "CertificateData="
     }
-    if (certificateData.contains("]")) {
-      certificateData = certificateData.substring(0, certificateData.length() - 1)
-    }
+    certificateData = certificateData.substring(1, certificateData.length())
+    certificateData = certificateData.substring(0, certificateData.length() - 1)
 
     certificateData = certificateData.replaceAll("\\s","")
 
@@ -1201,9 +1204,10 @@ public class VenafiHelper {
       def certFound = 0
       def elementCounter = 0
       while ((certFound == 0) && (elementCounter < splitCertificate.size())) {
-        if (splitCertificate[elementCounter].contains("CertificateData:")) {
+        if (splitCertificate[elementCounter].contains(searchTermForCertificateData)) {
           certFound = 1
-          def certificate = splitCertificate[elementCounter].substring("CertificateData:".length(), splitCertificate[elementCounter].length())
+          //def certificate = splitCertificate[elementCounter].substring(searchTermForCertificateData.length() + 1, splitCertificate[elementCounter].length())
+          def certificate = splitCertificate[elementCounter].replaceAll(searchTermForCertificateData,"")
           if (certificate.length() > 0) {
             // write the certificate to a file on the host
 
@@ -1222,7 +1226,7 @@ public class VenafiHelper {
         elementCounter++
       }
       if (certFound == 0) {
-        println("Problem with the returned certificate data - unable to find the section 'CertificateData:'")
+        println("Problem with the returned certificate data - unable to find the section " + searchTermForCertificateData)
         println(certificateData)
       }
     } else {
@@ -1230,5 +1234,5 @@ public class VenafiHelper {
       println(certificateData)
     }
     return filename
-  }
+}
 }
