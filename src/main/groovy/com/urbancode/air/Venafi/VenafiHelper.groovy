@@ -1,11 +1,7 @@
 /*
  * Licensed Materials - Property of IBM Corp.
  * IBM UrbanCode Deploy
-<<<<<<< HEAD
- * (c) Copyright IBM Corporation 2011, 2014. All Rights Reserved.
-=======
  * (c) Copyright IBM Corporation 2017. All Rights Reserved.
->>>>>>> bcd33dde3bb541b4afbdb2de8f831a463496f986
  *
  * U.S. Government Users Restricted Rights - Use, duplication or disclosure restricted by
  * GSA ADP Schedule Contract with IBM Corp.
