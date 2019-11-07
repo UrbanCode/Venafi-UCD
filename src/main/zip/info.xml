@@ -111,7 +111,7 @@
   </meta-html>
 
   <!-- Do not change the release-version, the build process injects it. -->
-  <release-version>28.0.8</release-version>
+  <release-version>@RELEASE_VERSION@</release-version>
 
 
   <release-notes>
@@ -155,6 +155,9 @@
     </release-note>
     <release-note plugin-version="28">
     Fixed error where different versions of Venafi return incompatible certificate data.
+    </release-note>
+    <release-note plugin-version="29">
+    Fixed plugin upgrade process from older versions.
     </release-note>
   </release-notes>
 </pluginInfo>
