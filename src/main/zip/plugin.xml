@@ -516,7 +516,7 @@
         <property-ui type="textBox" label="Certificate DN" default-value="${p:resource/certificateDN}" description="The DN for the certificate within TPP"/>
       </property>
       <property name="reasonCode" required="true">
-        <property-ui type="selectBox" label="Reason" default-value="0 - None" description="The reason for the revoke request."/>
+        <property-ui type="selectBox" label="Reason" default-value="0" description="The reason for the revoke request."/>
           <value label="0 - None">0</value>
           <value label="1 - User key compromised">1</value>
           <value label="2 - CA key compromised">2</value>
