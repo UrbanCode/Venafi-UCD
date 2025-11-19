@@ -24,7 +24,6 @@ import org.codehaus.jettison.json.JSONObject
 import org.codehaus.jettison.json.JSONArray
 import groovy.json.JsonSlurper
 
-import com.urbancode.air.AirPluginTool
 import com.urbancode.ud.client.AgentClient
 import com.urbancode.ud.client.ResourceClient
 import com.urbancode.ud.client.EnvironmentClient
